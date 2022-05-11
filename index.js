@@ -4,6 +4,8 @@ const dotenv=require("dotenv");
 const mongoose=require("mongoose");
 const cors=require("cors");
 dotenv.config();
+app.use(express.json());
+app.use(cors());
 mongoose.connect(
     process.env.DB_CONNECT,
     { useUnifiedTopology : true,useNewUrlParser:true },
@@ -12,8 +14,6 @@ mongoose.connect(
 // import routes
 const productRoutes =  require("./routes/product"); 
 const req = require("express/lib/request");
-app.use(express.json());
-app.use(cors());
 // route Middlewares
 app.use("/api/products",productRoutes);
 

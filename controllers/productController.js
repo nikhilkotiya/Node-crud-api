@@ -5,7 +5,7 @@ const Product = require("../model/Product");
 const product_all = async (req, res) => {
     try {
         const products = await Product.find();
-        res.json(products);
+        res.status(201).send(products);
       } catch (error) {
         res.json({ message: error });
       }
@@ -22,16 +22,11 @@ const product_details = async (req,res)=>{
 // Add New Product
 // Add New product
 const product_create = async (req, res) => {
-    const product = new Product({
-        title: req.body.title,
-        price: req.body.price,
-        image: req.body.image,
-        details: req.body.details
-      });
-    
       try {
+        const product = new Product(req.body);
+        console.log(req.body)
         const savedProduct = await product.save();
-        res.send(savedProduct);
+        res.status(201).send(savedProduct);
       } catch (error) {
         res.status(400).send(error);
       }
